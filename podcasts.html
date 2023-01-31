@@ -1,0 +1,61 @@
+<html> 
+    <head>
+      
+        <title>Mountainmort: Contact Me!</title> 
+
+        <link href="./resources/css/style.css" type="text/css" rel="stylesheet">
+    
+        <!-- Lightweight client-side loader that feature-detects and load polyfills only when necessary -->
+        <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js"></script>
+
+        <!-- Load the element definition -->
+        <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js"></script>
+
+    </head>
+   
+    <body> 
+        <div class="grid">
+
+            <!-- TODO: refactor header into a single, re-usable component -->
+            <header>            
+                <div id="header-hero">
+
+                    <div id="header-img">
+                        <h1>IMG</h1>
+                    </div>
+
+                    <div id="header-title">
+                        <h2 id="name">Josh</h2>
+                        <h3 id="witty-quote">Code Fast, Run Slow</h3>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul class="header-nav-links">
+                        <li><a href="index.html">Back to Home</a></li>
+                        <li><a href="/copy/podcasts.md">View Raw MD</a></li>
+                    </ul>
+                </nav>
+            </header>
+                
+            <main>
+                <div id="main">
+
+                    <section id="podcast">                       
+                        
+                        <zero-md src="/copy/podcasts.md"></zero-md>
+
+                    </section>
+
+                </div>
+            </main>
+            
+            <br />
+                
+            <footer>
+                
+            </footer>
+
+        </div>
+    </body>
+  </html>
