@@ -50,7 +50,7 @@ header {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid black;
-    background-image: linear-gradient(to left, black, 80%, rgb(20,20,20));
+    background-image: linear-gradient(to left, black, 90%, rgba(50, 50, 50, .8), black);
     padding: 5px 0px 5px 10px;
 }
 
@@ -107,12 +107,12 @@ nav {
     margin: .5em;
     border: .5px solid darkgrey;
     border-radius: 1em;
-    box-shadow: 2px 2px 4px 4px rgb(20,20,20);  
+    box-shadow: 1px 1px 1px 0px white;  
 }
 
 .header-nav-link-button:hover {
-    background-color: darkblue;
-    border-color: black;
+    background-color: rgba(50, 50, 50, 1);
+    border-color: white;
     transition: 0.3s;
 }
 
