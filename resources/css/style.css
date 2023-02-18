@@ -3,6 +3,7 @@
 * {
     margin: 0;
     padding: 0;
+    /* z-index: 0;; */
 }
 
 body {
@@ -30,6 +31,7 @@ body {
     'header'
     'main'
     'footer';
+    /* z-index: -2; */
 }
 
 .wrapper {
@@ -40,7 +42,7 @@ body {
     background-position: center center;
     object-fit: cover;
     perspective: 10px;
-    z-index: -1;
+    /* z-index: -1; */
 }
 
 /*#endregion page */
