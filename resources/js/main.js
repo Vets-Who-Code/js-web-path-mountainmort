@@ -1,60 +1,141 @@
 
-const ARRAY_LENGTH = 5;
-const MAX_INT = 100;
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => { jsDomFunction() }, 2000);
+});
 
-console.log('START: Generate Random Array');
-const randomNumbers = generateRandomArray(ARRAY_LENGTH, MAX_INT);
-printArray(randomNumbers);
-console.log('END: Generate Random Array');
 
-console.log('START: Adding counter to array values');
-for (let counter = 0; counter < randomNumbers.length; counter++) {
-    randomNumbers[counter] += counter;
-}
-console.log('RESULT: Adding counter to array values: ');
-printArray(randomNumbers);
-console.log('END: Adding counter to array values');
+function jsDomFunction() {
+    createStyles();
 
-console.log('START: Printing Even or Odd - Stored Array');
-logIsEvenOrOdd(randomNumbers);
-console.log('END: Printing Even or Odd - Stored Array');
+    let main = document.getElementsByTagName('main')[0];
+    
+    let section = document.createElement('section');
+    section.id = 'dynamic-content';
+    section.className = 'dynamic-content';
+    section.innerHTML = `
+                        <ul id="dynamic-list" class='dynamic-list' style="{display: 'block'}">
+                            <li class="dynamic-list-li">Initial LI - No Click</li>
+                        </ul>
+                    `;
+    
+    main.prepend(section);
 
-console.log('START: Printing Even or Odd - New Array');
-logIsEvenOrOdd(generateRandomArray(ARRAY_LENGTH, MAX_INT));
-console.log('END: Printing Even or Odd - New Array');
+    let dynamicDiv = document.getElementById('dynamic-content');
+    appendButton(dynamicDiv, 'Add List Item', 'button-add', 'button-add dynamic-list-button', () => { modifyList('dynamic-list', 'dynamic-list-li', 'add'); });
+    appendButton(dynamicDiv, 'Remove List Item', 'button-remove', 'button-remove dynamic-list-button', () => { modifyList('dynamic-list', 'dynamic-list-li', 'remove') });
+    
+    // #region Helper Functions
+    
+    function createStyles() {
+        let style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = `
+                            .dynamic-list { margin-left: 30px; }
+                            .dynamic-list-button { margin-left: 30px; height: 50px; }
+                            `;
 
-console.log('START: Manipulate Array');
-randomNumbers.splice(2, 1);
-printArray(randomNumbers);
-
-randomNumbers.unshift("new start");
-printArray(randomNumbers);
-
-randomNumbers.push("new end");
-printArray(randomNumbers);
-console.log('END: Manipulate Array');
-
-// Required Methods
-
-function logIsEvenOrOdd(numberArray) {
-    let i = 0;
-    while (i < numberArray.length) {
-        if (numberArray[i] % 2 == 0) console.log(`${numberArray[i]} is even`);
-        else console.log(`${numberArray[i]} is odd`);
-        i++;
-    }   
-}
-
-// Helper Methods
-
-function generateRandomArray(length, max) {
-    return Array(length).fill().map(() => Math.round(Math.random() * max));
-}
-
-function printArray(numbers) {
-    console.log('\t--Printing Array--');
-    for (let i = 0; i < numbers.length; i++) {
-        console.log(i + ': ' + numbers[i]);
+        document.getElementsByTagName('head')[0].appendChild(style);
     }
-    console.log('\t--End of Array--');
+
+    function appendButton(element, text, id, className, onClickFunction) {
+        let button = document.createElement('button');
+        button.innerText = text;
+        button.id = id;
+        button.className = className;
+        element.append(button);
+
+        document.getElementById(id).addEventListener('click', onClickFunction, true);
+    }
+
+    function modifyList(listId, liClassName, action) {
+        let list = document.getElementById(listId);
+        
+        if (action == 'add') {
+            let listItem = document.createElement('li');
+            listItem.innerText = 'Added LI - Click Me';
+            listItem.className = liClassName;
+            list.append(listItem);
+            listItem.addEventListener('click', () => { 
+                document.getElementById('dynamic-list').style.backgroundColor = Math.floor(Math.random()*16777215).toString(16);
+            });
+        }
+        else if (action == 'remove') {
+            let listItems = document.getElementsByClassName(liClassName);
+            if (listItems.length > 0) {
+                listItems[listItems.length-1].remove();
+            }
+        }
+    }
+
+    // #endregion
+
+}
+
+
+function jsOneFunction() {    
+    const ARRAY_LENGTH = 5;
+    const MAX_INT = 100;
+
+
+    console.log('START: Generate Random Array');
+    const randomNumbers = generateRandomArray(ARRAY_LENGTH, MAX_INT);
+    printArray(randomNumbers);
+    console.log('END: Generate Random Array');
+    
+    console.log('START: Adding counter to array values');
+    for (let counter = 0; counter < randomNumbers.length; counter++) {
+        randomNumbers[counter] += counter;
+    }
+    console.log('RESULT: Adding counter to array values: ');
+    printArray(randomNumbers);
+    console.log('END: Adding counter to array values');
+    
+    console.log('START: Printing Even or Odd - Stored Array');
+    logIsEvenOrOdd(randomNumbers);
+    console.log('END: Printing Even or Odd - Stored Array');
+    
+    console.log('START: Printing Even or Odd - New Array');
+    logIsEvenOrOdd(generateRandomArray(ARRAY_LENGTH, MAX_INT));
+    console.log('END: Printing Even or Odd - New Array');
+    
+    console.log('START: Manipulate Array');
+    randomNumbers.splice(2, 1);
+    printArray(randomNumbers);
+    
+    randomNumbers.unshift("new start");
+    printArray(randomNumbers);
+    
+    randomNumbers.push("new end");
+    printArray(randomNumbers);
+    console.log('END: Manipulate Array');
+
+    
+    // #region Required Methods
+
+    function logIsEvenOrOdd(numberArray) {
+        let i = 0;
+        while (i < numberArray.length) {
+            if (numberArray[i] % 2 == 0) console.log(`${numberArray[i]} is even`);
+            else console.log(`${numberArray[i]} is odd`);
+            i++;
+        }   
+    }
+
+    // #endregion Required Methods
+
+    // #region Helper Methods
+
+    function generateRandomArray(length, max) {
+        return Array(length).fill().map(() => Math.round(Math.random() * max));
+    }
+
+    function printArray(numbers) {
+        console.log('\t--Printing Array--');
+        for (let i = 0; i < numbers.length; i++) {
+            console.log(i + ': ' + numbers[i]);
+        }
+        console.log('\t--End of Array--');
+    }
+    // #endregion Helper Methods
+
 }
