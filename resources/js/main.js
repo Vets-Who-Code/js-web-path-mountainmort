@@ -3,6 +3,97 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { jsDomFunction() }, 2000);
 });
 
+function jsApiFunction() {
+    createStyles();
+
+    let main = document.getElementsByTagName('main')[0];
+    
+    let section = document.createElement('section');
+    section.id = 'dynamic-content';
+    section.className = 'dynamic-content';
+    section.innerHTML = `
+        <table id="dynamic-table" class='dynamic-table'>
+            <tr style="{border: 1px solid black}">
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Hair</th>
+                <th>Eyes</th>
+            </tr>
+        </table>
+    `;    
+    main.prepend(section);
+
+    promiseWait(1).then(async () => {
+        const apiUrl = 'https://swapi.dev/api/people/';
+        
+        try {
+            showLoader('dynamic-table');
+            let fetchPromise = await fetch(apiUrl);
+            if (!fetchPromise.ok) {
+                throw Error(fetchPromise.status + ": " + fetchPromise.statusText);
+            }
+
+            let json = await fetchPromise.json();
+            hideLoader('dynamic-table');
+
+            json.results.map((person) => {
+                addPersonToTable(person);
+            });
+        } catch (e) {
+            let p = document.createElement('p');
+            p.innerText = e;
+            section.append(p);
+            hideLoader('dynamic-table');
+        }
+    });
+
+    function createStyles() {
+        let style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = `
+                        .dynamic-table { margin-left: 30px; }    
+                        .dynamic-content > table, tr, th, td { border: 1px solid black; }
+                        `;
+
+        document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function promiseWait(seconds) {
+        let promise = new Promise((resolve,reject) => {
+            setTimeout(() => { resolve() }, seconds * 1000);
+        });
+        
+        return promise;
+    }
+
+    function addPersonToTable(person) {
+        let table = document.getElementById('dynamic-table');
+        let tr = document.createElement('tr');
+        tr.innerHTML = `
+                        <td>${person.name}</td>
+                        <td>${person.gender}</td>
+                        <td>${person.hair_color}</td>
+                        <td>${person.eye_color}</td>
+                        `;
+        table.append(tr);
+    }
+
+    function showLoader(nodeIdToAppend) {
+        let node = document.getElementById(nodeIdToAppend);
+        
+        let loader = document.createElement('span');
+        loader.id = nodeIdToAppend + '-loader';
+        loader.className = 'loader';
+        node.append(loader);
+    }
+
+    function hideLoader(nodeId) {
+        let loader = document.getElementById(nodeId + '-loader');
+        loader.remove();
+    } 
+
+}
+
 
 function jsDomFunction() {
     createStyles();
