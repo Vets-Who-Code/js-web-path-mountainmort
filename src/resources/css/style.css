@@ -33,7 +33,7 @@ body {
 }
 
 .wrapper {
-    background-image: url('/resources/img/bridger_range.jpg');
+    background-image: url('../img/bridger_range.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: contain;
