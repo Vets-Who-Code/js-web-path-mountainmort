@@ -1,9 +1,9 @@
-
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { jsDomFunction() }, 2000);
 });
 
-function jsApiFunction() {
+
+const jsApiFunction = () => {
     createStyles();
 
     let main = document.getElementsByTagName('main')[0];
@@ -36,10 +36,10 @@ function jsApiFunction() {
             let json = await fetchPromise.json();
             hideLoader('dynamic-table');
 
-            json.results.map((person) => {
+            json.results.map((person: Person) => {
                 addPersonToTable(person);
             });
-        } catch (e) {
+        } catch (e: any) {
             let p = document.createElement('p');
             p.innerText = e;
             section.append(p);
@@ -58,15 +58,15 @@ function jsApiFunction() {
         document.getElementsByTagName('head')[0].appendChild(style);
     }
 
-    function promiseWait(seconds) {
+    function promiseWait(seconds: number) {
         let promise = new Promise((resolve,reject) => {
-            setTimeout(() => { resolve() }, seconds * 1000);
+            setTimeout(() => { resolve("done") }, seconds * 1000);
         });
         
         return promise;
     }
 
-    function addPersonToTable(person) {
+    function addPersonToTable(person: Person) {
         let table = document.getElementById('dynamic-table');
         let tr = document.createElement('tr');
         tr.innerHTML = `
@@ -75,27 +75,34 @@ function jsApiFunction() {
                         <td>${person.hair_color}</td>
                         <td>${person.eye_color}</td>
                         `;
-        table.append(tr);
+        table!.append(tr);
     }
 
-    function showLoader(nodeIdToAppend) {
+    function showLoader(nodeIdToAppend: string) {
         let node = document.getElementById(nodeIdToAppend);
         
         let loader = document.createElement('span');
         loader.id = nodeIdToAppend + '-loader';
         loader.className = 'loader';
-        node.append(loader);
+        node!.append(loader);
     }
 
-    function hideLoader(nodeId) {
+    function hideLoader(nodeId: string) {
         let loader = document.getElementById(nodeId + '-loader');
-        loader.remove();
+        loader!.remove();
     } 
+
+    type Person = {
+        name: string;
+        gender: string;
+        hair_color: string;
+        eye_color: string;
+    };
 
 }
 
 
-function jsDomFunction() {
+const jsDomFunction = () => {
     createStyles();
 
     let main = document.getElementsByTagName('main')[0];
@@ -112,8 +119,8 @@ function jsDomFunction() {
     main.prepend(section);
 
     let dynamicDiv = document.getElementById('dynamic-content');
-    appendButton(dynamicDiv, 'Add List Item', 'button-add', 'button-add dynamic-list-button', () => { modifyList('dynamic-list', 'dynamic-list-li', 'add'); });
-    appendButton(dynamicDiv, 'Remove List Item', 'button-remove', 'button-remove dynamic-list-button', () => { modifyList('dynamic-list', 'dynamic-list-li', 'remove') });
+    appendButton(dynamicDiv!, 'Add List Item', 'button-add', 'button-add dynamic-list-button', () => { modifyList('dynamic-list', 'dynamic-list-li', 'add'); });
+    appendButton(dynamicDiv!, 'Remove List Item', 'button-remove', 'button-remove dynamic-list-button', () => { modifyList('dynamic-list', 'dynamic-list-li', 'remove') });
     
     // #region Helper Functions
     
@@ -128,26 +135,26 @@ function jsDomFunction() {
         document.getElementsByTagName('head')[0].appendChild(style);
     }
 
-    function appendButton(element, text, id, className, onClickFunction) {
+    function appendButton(element: HTMLElement, text: string, id: string, className: string, onClickFunction: EventListener) {
         let button = document.createElement('button');
         button.innerText = text;
         button.id = id;
         button.className = className;
         element.append(button);
 
-        document.getElementById(id).addEventListener('click', onClickFunction, true);
+        document.getElementById(id)!.addEventListener('click', onClickFunction, true);
     }
 
-    function modifyList(listId, liClassName, action) {
+    function modifyList(listId: string, liClassName: string, action: "add"|"remove") {
         let list = document.getElementById(listId);
         
         if (action == 'add') {
             let listItem = document.createElement('li');
             listItem.innerText = 'Added LI - Click Me';
             listItem.className = liClassName;
-            list.append(listItem);
+            list!.append(listItem);
             listItem.addEventListener('click', () => { 
-                document.getElementById('dynamic-list').style.backgroundColor = Math.floor(Math.random()*16777215).toString(16);
+                document.getElementById('dynamic-list')!.style.backgroundColor = Math.floor(Math.random()*16777215).toString(16);
             });
         }
         else if (action == 'remove') {
@@ -163,7 +170,7 @@ function jsDomFunction() {
 }
 
 
-function jsOneFunction() {    
+const jsOneFunction = () => {    
     const ARRAY_LENGTH = 5;
     const MAX_INT = 100;
 
@@ -193,17 +200,17 @@ function jsOneFunction() {
     randomNumbers.splice(2, 1);
     printArray(randomNumbers);
     
-    randomNumbers.unshift("new start");
+    randomNumbers.unshift(-1);
     printArray(randomNumbers);
     
-    randomNumbers.push("new end");
+    randomNumbers.push(99999999);
     printArray(randomNumbers);
     console.log('END: Manipulate Array');
 
     
     // #region Required Methods
 
-    function logIsEvenOrOdd(numberArray) {
+    function logIsEvenOrOdd(numberArray: number[]) {
         let i = 0;
         while (i < numberArray.length) {
             if (numberArray[i] % 2 == 0) console.log(`${numberArray[i]} is even`);
@@ -216,11 +223,11 @@ function jsOneFunction() {
 
     // #region Helper Methods
 
-    function generateRandomArray(length, max) {
-        return Array(length).fill().map(() => Math.round(Math.random() * max));
+    function generateRandomArray(length: number, max: number) {
+        return Array(length).fill(0).map(x => Math.round(Math.random() * max));
     }
 
-    function printArray(numbers) {
+    function printArray(numbers: number[]) {
         console.log('\t--Printing Array--');
         for (let i = 0; i < numbers.length; i++) {
             console.log(i + ': ' + numbers[i]);
