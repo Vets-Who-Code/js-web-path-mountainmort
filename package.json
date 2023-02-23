@@ -1,11 +1,11 @@
 {
   "name": "js-web-path-mountainmort",
-  "source": "src/index.html",
+  "version": "0.1.0",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel --open chrome",
-    "watch": "parcel watch",
-    "build": "parcel build",
+    "start": "(parcel ./src/index.html --open chrome) & parcel watch ./src/index.html",
+    "build": "parcel build ./src/index.html",
+    "check": "tsc --noEmit",
     "nodetest": "node src/index.js"
   },
   "devDependencies": {
