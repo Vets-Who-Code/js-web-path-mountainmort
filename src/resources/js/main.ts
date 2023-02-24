@@ -1,6 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => { jsDomFunction() }, 2000);
+    // setTimeout(() => { jsDomFunction() }, 2000);
+    setTimeout(() => { tsFunction() }, 2000);
 });
+
+const tsFunction = () : void => {
+    type objArray = Array<{ value: string }>;
+
+    const fillArray = (array: objArray, arrayLength: number) : objArray => {
+        for (let i = 0; i < arrayLength; i++) array.push({ value: generateRandomString() });
+        return array;
+    }
+
+    const generateRandomString = () => {
+        const strLength = Math.ceil(Math.random() * 10);
+        
+        return (Array.from({
+            length: strLength
+        }, () => String.fromCharCode((97 + Math.floor((Math.random() * 26)))))).join('')
+    }
+
+    let exampleArray : objArray = [];
+    let exampleArrayModified : objArray = fillArray(exampleArray, Math.ceil(Math.random() * 10));
+    console.log(exampleArrayModified);    
+}
+
+
+
 
 
 const jsApiFunction = () => {
