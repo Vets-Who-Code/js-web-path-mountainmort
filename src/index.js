@@ -1,57 +1,47 @@
-const path = require('path');
-const fsPromises = require('fs/promises');
-const { read } = require('fs');
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import {
+    BrowserRouter,
+    Routes,
+    Route
+  } from "react-router-dom";
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
+import Dashboard from './components/body/dashboard/Dashboard';
+import ContactForm from './components/body/contactForm/ContactForm';
+import Podcasts from './components/body/podcasts/Podcasts';
 
-async function createFile(filePath) {
-  console.log("Create file...");
-    try {
-      let result = await fsPromises.writeFile(filePath, "Initial text");
-      console.log('File created successfully');
-    } catch (error) {
-      console.log("Error creating file: " + error);
-    }
-}
 
-async function updateFile(filePath, text) {
-  console.log("Update file...");
-    try {
-      let result = await fsPromises.writeFile(filePath, text);
-      console.log('File updated successfully');
-    } catch (error) {
-      console.log("Error updating file: " + error);
-    }
-}
+const container = document.getElementById("app");
+const root = createRoot(container);
+root.render(
+    <StrictMode>
+        <BrowserRouter basename="/">
+      
+            <Header />
+            
+            <div className="wrapper">
 
-async function readFile(filePath) {
-  console.log("Read file...");
-    try {
-      let result = await fsPromises.readFile(filePath);
-      console.log('File read successfully. Contents: ');
-      console.log(result.toString());
-    } catch (error) {
-      console.log("Error reading file: " + error);
-    }
-}
+                <main>
+                    <div className="main">
+                        <Routes>
+                            <Route path="/" element={ <Dashboard /> } />
+                            <Route path="/contactForm" element={ <ContactForm /> } />
+                            <Route path="/podcasts" element={ <Podcasts /> } />
+                            {/* <Route path="/home" element={<PageHome />} /> */}
+                            {/* <Route path="/about" element={<PageAbout />} />
+                            <Route path="/work" element={<PageWork />} />
+                            <Route path="/singlework/:id" element={<PageSingleWork />} />
+                            <Route path="/contact"me element={<PageContact />} />
+                            <Route path="*" element={<PageNotFound />} /> */}
+                        </Routes>
+                    </div>
+                </main>
+                
+            </div>
 
-function deleteFile(filePath) {
-  console.log("Delete file...");
-  return new Promise(async (resolve, reject) => {
-    try {
-      let result = await fsPromises.unlink(filePath);
-      console.log("File deleted succesfully");
-      resolve();
-    } catch (error) {
-      console.log("Error deleting file: " + error);
-      reject();
-    }
-  });
-}
-
-const filePath = path.join(process.cwd(), "testfile.txt");
-
-(async() => { 
-  await createFile(filePath);
-  await  updateFile(filePath, "overwritten text to file");
-  await readFile(filePath);
-  await deleteFile(filePath)
-})();
+            <Footer />
+      
+        </BrowserRouter>
+    </StrictMode>
+);

@@ -182,6 +182,27 @@ main section .section-content > p {
     padding-right: 20px;
 }
 
+#podcast {
+    display: block;
+    padding: 30px;
+}
+
+#podcast > h2 {
+    padding-top: 15px;
+}
+
+#podcast > h1, h2, h3, p {
+    padding-bottom: 5px;
+}
+
+#podcast > h3, p {
+    padding-left: 10px;
+}
+
+#podcast > ul, li {
+    margin-left: 40px;
+}
+
 .code-calendar thead {
     text-align: center;
 }
