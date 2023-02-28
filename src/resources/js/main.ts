@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // setTimeout(() => { jsDomFunction() }, 2000);
-    setTimeout(() => { tsFunction() }, 2000);
+    // setTimeout(() => { tsFunction() }, 2000);
 });
 
 const tsFunction = () : void => {
